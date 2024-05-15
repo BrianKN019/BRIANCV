@@ -1,0 +1,605 @@
+@import url(//fonts.googleapis.com/css?family=Permanent+Marker|Bad+Script:regular|Baumans|ansita+One:regular|Bungee+Shade|Candal|Chewy|Codystar|Comfortaa|Fredericka+the+Great|Gochi+Hand|Monofett|Permanent+Marker|Poiret+One|Press+Start+2P|Rock+Salt|Waiting+for+the+Sunrise);
+@import "compass/css3";
+
+// icons
+$prev-icon:	'⬆';
+$next-icon:	'⬇';
+// colors
+// material design base
+$blue: #2196F3;
+$pink: #E91E63;
+$red: #F44336;
+$indigo: #3F51B5;
+$teal: #42CFCC;
+$purple: #C540D6;
+$burnt: #E88E2E;
+$grey: #616161;
+$dpurple: #694486;
+$bpurple: #B487B9;
+// fundamental colors
+$circle-menu-active: #607D8B;
+$circle-menu-even: #BCAAA4;
+$circle-menu-odd: rgba(241, 196, 15, 0.1);
+$quick-btn-active: $bpurple;
+$main-section: #333;
+$main-title: #FFAB40;
+$main-list-item:#EEE8D5;
+$bash-color:  #00D900;
+$table-bg: #34495E;
+$table-th-color: #000;
+$prev-next-bg: rgba(255,255,255,0);
+$prev-next-bg-hover: rgba(255,255,255,0.1);
+// fonts
+$primary-font: 'Baumans', fantasy, cursive, monospaceserif, sans-serif;
+$secondary-font: Helvetica, Avenir, Courier; 
+$title-font: Chalkduster, fantasy, Georgia;
+$anchor-font: 'Permanent Marker', 'Comfortaa', 'Chewy', cursive;
+$table-th-font:  'Sansita One', SegoePrint;
+$bash-font: Menlo, monospace, sans-serif;
+//  utils
+@function sqrt($r) {
+  $x0: 1;
+  $x1: $x0;
+ 
+  @for $i from 1 through 10 {
+    $x1: $x0 - ($x0 * $x0 - abs($r)) / (2 * $x0);
+    $x0: $x1;
+  }
+ 
+  @return $x1;
+};
+$golden_ratio: (sqrt(5) - 1) / 2;
+.upper {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  border-radius: 0 0 20px 20px;
+  // animation 
+  color: $blue;
+  transition: background 500ms ease-in-out, color 500ms ease-in-out, box-shadow 500ms ease-in-out;
+  &:hover {
+    color: $grey;
+    box-shadow: 0 0 20px 0 $blue, inset 0 0 200px 5px $blue;
+  }
+}
+.lower {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  border-radius: 20px 20px 0 0;
+  
+  color: $teal;
+  box-shadow:  0 0 0 0 $blue, inset 0 0 0 0 $teal;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  &:hover {
+    color: $grey;
+    box-shadow: 0 0 10px 0 $teal, inset 0 0 200px 5px $teal;
+  }
+}
+.hidden { display: none; }
+.center { margin: auto; }
+.circle {  border-radius: 50%; }
+.active-menu { background-color: $circle-menu-active !important; }
+.active-main { background-color: $quick-btn-active !important; }
+.active-sidebar {
+  cursor: pointer;
+  border: 2px outset darken($bpurple, 10%);
+  span {
+    width: 100%;
+  }
+}
+
+
+
+.wrapper {
+  height: 100%;
+  // background-color: transparent;
+  font-family: $primary-font;
+  display: flex;
+  flex-flow: row nowrap;
+  //align-items: stretch;
+}
+.box {
+  margin: 0 auto;
+  #text-align: center;
+}
+.box-left {
+  flex: 1 1 (1 - $golden_ratio) * 100%;
+  background-color: $dpurple;
+  min-width: 200px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.box-right {
+  position: relative;
+  flex: 1 1 $golden_ratio * 100%;
+  background-color: $main-section;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+#sidebar {
+  .circle-menu {
+    position: relative;
+    min-width: 400px;
+    min-height: 400px;
+    margin: 50px auto;
+    box-shadow: 0 0 10px #ccc;
+    ul {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      margin: 50px;
+      padding: 0;
+      list-style: none;
+      border-radius: 50%;
+      overflow: hidden;
+      transition: transform 0.7s ease;
+      text-align: center;
+    }
+    li {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      transform-origin: 100% 100%;
+      width: 160px;
+      height: 160px;
+      overflow: hidden;
+    }
+    li:nth-child(1) {
+      transform: rotate(0deg) skew(30deg);
+    }
+    li:nth-child(2) {
+      transform: rotate(60deg) skew(30deg);
+    }
+    li:nth-child(3) {
+      transform: rotate(120deg) skew(30deg);
+    }
+    li:nth-child(4) {
+      transform: rotate(180deg) skew(30deg);
+    }
+    li:nth-child(5) {
+      transform: rotate(240deg) skew(30deg);
+    }
+    li:nth-child(6) {
+      transform: rotate(300deg) skew(30deg);
+    }
+    a {
+      display: block;
+      text-decoration: none;
+      width: 160px;
+      height: 160px;
+      padding:  28px;
+      font-size:  1.2em;
+      color: #000000;
+      background:  $circle-menu-even no-repeat 50% 40%;
+      transform: skew(-30deg) rotate(-60deg);
+      margin: 40px 0 0 40px;
+      transition: background-color 0.5s;
+    }
+    li:nth-child(even) a {
+      background-color: $circle-menu-odd;
+    }
+      li a:hover {
+      background-color: $circle-menu-active;
+    }
+  }
+ .img {
+    width: 150px;
+    height: 150px;
+    background-image: url(http://www.wallpapersdb.org/wallpapers/cats/cute_cat_praying_1920x1200.jpg);
+  }
+}
+
+#main {
+  .btn {
+    @extend .hidden;
+    height: 30px;
+    padding-top:  10px;
+    min-width:  20%;
+    // margin-left:  -10%;
+    left:  60%;
+    text-align: center;
+  }
+  &:hover {
+    .btn {
+      display: block;
+      background: rgba(255, 255, 255, .05);
+    }
+  }
+}
+
+#quick-menu {
+  // border: 1px #ccc solid;
+  height: 200px;
+  align-self:  stretch;
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  right: 20px;
+  margin-top: -100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  .quick-btn {
+    @extend .circle;
+    width: 10px;
+    height: 10px;
+    border: 1px $grey outset;
+    &:hover {
+      @extend .active-main
+    }
+  }
+}
+
+
+#fullpage {
+  .objective {
+    .typed-element {
+      float: left;
+      margin-left:  50px;
+      font-family: $bash-font;
+      font-size:  1.4em;
+      color: $bash-color;
+      &:before {
+        content:  'bash$ ';
+      }
+    }
+    // vendor  specific (typed.js)
+    .typed-cursor{
+        float:  left;
+        clear:  right;
+        opacity: 1;
+        font-size:  1.3em;
+        color: #00D900;
+        -webkit-animation: blink 0.7s infinite;
+        -moz-animation: blink 0.7s infinite;
+        animation: blink 0.7s infinite;
+      }
+      @keyframes blink {
+          0% { opacity:1; }
+          50% { opacity:0; }
+          100% { opacity:1; }
+      }
+      @-webkit-keyframes blink {
+          0% { opacity:1; }
+          50% { opacity:0; }
+          100% { opacity:1; }
+      }
+      @-moz-keyframes blink {
+          0% { opacity:1; }
+          50% { opacity:0; }
+          100% { opacity:1; }
+      }
+    .description {
+      font-family:  'Fredericka the Great', fantasy;
+      line-height:  2em;
+      color: darken($main-list-item, 40%);
+      span {
+        font-family: $bash-font;
+        font-size: 1.2em;
+        font-style:  bold;
+      }
+    }
+  }
+  .work {
+    ul {
+      list-style:  none;
+      text-align: left;
+    }
+    li {
+      padding: 30px;
+      // font-family: Meslo, monospace;
+      color: darken(lightgrey, 20%);
+      transition: all .3s ease;
+      &:hover {
+        background: rgba(0,0,50,.3);
+      }
+      &:before {
+        content:  '✔︎';
+        color:  green;
+        padding:  20px;
+      }
+      &:nth-child(even) {
+        background: rgba(0,0,50,.2);
+      }
+      &:nth-child(odd) {
+	      background: rgba(0,0,50,.1);
+      }
+    }
+    p {
+      color:  darken(lightgrey,  10%);
+    }
+  }
+  .education {
+    .table {
+      display:  table;
+      width:  100%;
+      @extend .center;
+    }
+    .thead {
+      display:  table-header-group;
+    }
+    .row {
+      display:  table-row;
+    }
+    .cell {
+      display: table-cell;
+      strong {
+        color: $circle-menu-active;
+        font-size: 2em;
+        font-family: Monofett, 'Gochi Hand', 'Permanent Marker', 'Poiret One', fantasy;
+      }
+    }
+    p {
+      font-size:  2em;
+      font-family: Monofett, 'Gochi Hand', 'Permanent Marker', 'Poiret One', fantasy;
+    }
+  }
+  .skills {
+    .lang-pro {
+      li {
+        background-image: 
+          linear-gradient(
+            90deg,
+            darken(#9E9E9E, 20%) 10px,
+            #EEE 10px,
+            #EEE 11px,
+            transparent 11px);
+        &:before {
+          // content: '♤'
+        }
+      }
+    }
+    .framework {
+       li {
+        background-image: 
+          linear-gradient(
+            90deg,
+            darken(#9E9D24, 10%) 10px,
+            #EEE 10px,
+            #EEE 11px, 
+            transparent 11px);
+        &:before {
+          // content: '♧'；
+        }
+      }
+    }
+    .software {
+      li {
+        background-image: 
+          linear-gradient(
+            90deg,
+            darken(#009688, 10%) 10px,
+            #EEE 10px,
+            #EEE 11px, 
+            transparent 11px);
+        &:before {
+          // content: '♡'；
+        }
+      } 
+    }
+    .lang {
+       li {
+        background-image: 
+          linear-gradient(
+            90deg,
+            darken(#F18060, 10%) 10px,
+            #EEE 10px,
+            #EEE 11px, 
+            transparent 11px);
+        &:before {
+          // content: '♢'；
+        }
+      }
+    }
+    table {
+      // using mobile first method (IE8,7 requires respond.js polyfill https://github.com/scottjehl/Respond)
+      $breakpoint-alpha: 400px; 
+
+      background: $table-bg;
+      border-radius: .4em;
+      overflow: hidden;
+      margin: 1em auto;
+      min-width: 300px; // adjust to your needs
+      tr {
+        border-color: lighten(#34495E, 10%);
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        font-family: $table-th-font;
+        color:  $table-th-color;
+      }
+      td {
+        vertical-align:  baseline;
+        &:first-child {
+          padding-top: .5em;
+        }
+        &:last-child {
+          padding-bottom: .5em;
+        }
+        &:before {
+          content: attr(data-th)": "; // who knew you could do this? The internet, that's who.
+          font-weight: bold;
+          // optional stuff to make it look nicer
+          width: 6.5em; // magic number :( adjust according to your own content
+          display: inline-block;
+          // end options
+          @media (min-width: $breakpoint-alpha) {
+            display: none;
+          }
+        }
+      }
+      th, td {
+        margin: .5em 1em;
+        // border:  1px ridge #000000;
+        @media (min-width: $breakpoint-alpha) { 
+          padding: 1em !important; 
+        }
+        @media (min-width: $breakpoint-alpha) {
+          display: table-cell;
+          padding: .25em .5em;
+
+          &:first-child {
+            padding-left: 0;
+          }
+
+          &:last-child {
+            padding-right: 0;
+          }
+          &:before {
+             color: #dd5;
+          }
+        }
+      }
+    }
+    ul {
+      margin: 0 auto;
+      padding: 0;
+      max-height: 390px;
+      overflow-y: auto;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 5px 5px 0 5px;
+      border-left: none;
+      border-right: none;
+    }
+    li {
+      // color:  $main-list-item;
+      // border: 1px solid #CCC;
+      // cursor: pointer;
+      list-style: none;
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 10px 15px 10px 25px;
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5);
+
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 3px;
+    }
+  }
+  .projects {
+    ul {
+      list-style:  none;
+      text-align: left;
+    }
+    li {
+      padding: 2px;
+      font-family: Menlo, monospace;
+      color: lighten(#333333, 50%); //$main-list-item;
+      transition: all .3s ease;
+      &:hover {
+        background: lighten(#333333, 10%);
+      }
+      &:before {
+        content:  '►';
+        color:  green;
+        padding:  20px;
+      }
+      // &:nth-child(even) {
+      //   background: rgba(0,0,50,.2);
+      // }
+      // &:nth-child(odd) {
+      // background: rgba(0,0,50,.1);
+      // }
+    }
+  }
+  .random {
+    .letter {
+      position: relative;
+      font-size: 2em;
+      font-family: $title-font;
+      color: $bpurple;
+      opacity: 0;
+      padding:  10px;
+    }
+    @keyframes goodbye {
+
+      0% {opacity: 0;
+        top: 100%;}
+      25% {opacity: 1;
+        top: 50%;}
+      50% {opacity: 1;
+        top: 50%;}
+      100% {opacity: 0;
+        top: 100%;}
+
+    }
+    #goodbye .letter:nth-child(1) {
+      animation-name: goodbye;
+      animation-duration: 4s;
+      animation-delay: 2.2s;
+      animation-iteration-count: infinite;
+    }
+    #goodbye .letter:nth-child(2) {
+      animation-name: goodbye;
+      animation-duration: 4s;
+      animation-delay: 2.3s;
+      animation-iteration-count: infinite;
+    }
+    #goodbye .letter:nth-child(3) {
+      animation-name: goodbye;
+      animation-duration: 4s;
+      animation-delay: 2.4s;
+      animation-iteration-count: infinite;
+    }
+    #goodbye .letter:nth-child(4) {
+      animation-name: goodbye;
+      animation-duration: 4s;
+      animation-delay: 2.5s;
+      animation-iteration-count: infinite;
+    }
+    #goodbye .letter:nth-child(5) {
+      animation-name: goodbye;
+      animation-duration: 4s;
+      animation-delay: 2.6s;
+      animation-iteration-count: infinite;
+    }
+    #goodbye .letter:nth-child(6) {
+      animation-name: goodbye;
+      animation-duration: 4s;
+      animation-delay: 2.7s;
+      animation-iteration-count: infinite;
+    }
+    #goodbye .letter:nth-child(7) {
+      animation-name: goodbye;
+      animation-duration: 4s;
+      animation-delay: 2.8s;
+      animation-iteration-count: infinite;
+    }
+    
+  }
+  font-family: $secondary-font;
+  width: 90%;
+  text-align: center;
+  h2 {
+    font-family: $title-font;
+    color: $bpurple;
+    font-size: 2em;
+    margin-bottom:  50px;
+  }
+  p {
+    font-size:  20px;
+    font-family: $primary-font;
+    color: $circle-menu-active;
+  }
+  a {
+    font-family: $anchor-font;
+    text-decoration: none;
+    color: darken($main-list-item, 40%); //#859900; //$main-list-item;
+  }
+  ul li {
+    color:  lighten(#34495E, 50%);
+    font-family:  Menlo, monospace;
+  }
+  .date {
+    font-family:  $anchor-font;
+    margin: auto 1em;
+  }
+}
+
